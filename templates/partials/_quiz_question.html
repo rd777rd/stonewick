@@ -1,0 +1,8 @@
+{# Renders a single quiz question as a JS-steppable fieldset. Falls back to a
+   normal single-page form if JavaScript is unavailable (progressive
+   enhancement -- see static/js/quiz.js, which adds the stepping behavior
+   and only hides other steps once it has successfully loaded). #}
+<fieldset class="quiz-question" data-quiz-step="{{ forloop.counter0 }}">
+  <legend>{{ field.label }}</legend>
+  {{ field }}
+</fieldset>

@@ -1,0 +1,16 @@
+<article class="product-card">
+  <a href="{{ product.get_absolute_url }}">
+    {% if product.images.first %}
+      <img src="{{ product.images.first.image.url }}" alt="{{ product.images.first.alt_text }}" loading="lazy">
+    {% endif %}
+    <h3>{{ product.name }}</h3>
+  </a>
+  {% if product.scent %}<p class="product-scent">{{ product.scent.name }}</p>{% endif %}
+  <p class="product-price">${{ product.price }}</p>
+  <form method="post" action="{% url 'orders:cart_add' product.pk %}">
+    {% csrf_token %}
+    <input type="hidden" name="quantity" value="1">
+    <input type="hidden" name="next" value="{{ request.path }}">
+    <button type="submit" class="btn btn-secondary">Add to cart</button>
+  </form>
+</article>

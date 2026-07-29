@@ -1,0 +1,215 @@
+/* ==========================================================================
+   Stonewick — Design System
+   Plain hand-written CSS. Palette is exposed as custom properties so the
+   seasonal accent color can be swapped without touching any templates.
+   ========================================================================== */
+
+:root {
+  --color-greige: #E8E1D8;
+  --color-charcoal: #2B2620;
+  --color-accent: #C1704E;      /* terracotta — default/autumn accent */
+  --color-accent-alt: #8A9A7E;  /* sage — swap in for spring/summer via a body class */
+  --color-white: #FFFFFF;
+  --color-danger: #B3413A;
+
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --radius: 4px;
+  --container-width: 1140px;
+}
+
+/* Seasonal accent override — add class="season-spring" etc. to <body> */
+body.season-spring, body.season-summer { --color-accent: var(--color-accent-alt); }
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-charcoal);
+  background: var(--color-greige);
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+a { color: var(--color-charcoal); text-decoration: none; }
+a:hover { color: var(--color-accent); }
+
+/* Visible keyboard focus state on every interactive element -- relied on by
+   keyboard users and required for the quiz to be genuinely navigable
+   without a mouse. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section { padding: 3rem 0; }
+
+/* --- Header --- */
+.site-header {
+  background: var(--color-white);
+  border-bottom: 1px solid rgba(43,38,32,0.1);
+}
+.header-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem 1.5rem;
+  gap: 1rem;
+}
+.logo {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+}
+.main-nav a { margin-right: 1.25rem; }
+.header-actions a { margin-left: 1rem; }
+
+/* --- Messages --- */
+.messages { margin-top: 1rem; }
+.message {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 0.5rem;
+}
+.message-success { background: #E4ECD9; }
+.message-warning { background: #F5E7C8; }
+.message-error { background: #F3D8D5; }
+
+/* --- Hero --- */
+.hero {
+  background: var(--color-charcoal);
+  color: var(--color-greige);
+  padding: 5rem 0;
+  text-align: center;
+}
+.hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+.hero-sub { max-width: 640px; margin: 0 auto 2rem; font-size: 1.1rem; }
+
+/* --- Buttons --- */
+.btn {
+  display: inline-block;
+  padding: 0.65rem 1.5rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: none;
+}
+.btn-primary { background: var(--color-accent); color: var(--color-white); }
+.btn-primary:hover { background: var(--color-charcoal); color: var(--color-white); }
+.btn-secondary { background: transparent; border-color: var(--color-charcoal); color: var(--color-charcoal); }
+.btn-secondary:hover { background: var(--color-charcoal); color: var(--color-white); }
+.btn-danger { background: var(--color-danger); color: var(--color-white); }
+.btn-small { padding: 0.3rem 0.75rem; font-size: 0.85rem; }
+
+/* --- Product grid/card --- */
+.product-grid, .post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+.product-card, .post-card {
+  background: var(--color-white);
+  padding: 1rem;
+  border-radius: var(--radius);
+}
+.product-card img { width: 100%; height: auto; border-radius: var(--radius); }
+.product-price { font-weight: bold; margin: 0.5rem 0; }
+.product-scent { color: var(--color-accent); font-style: italic; }
+
+/* --- Product detail --- */
+.product-detail {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+.product-detail-media img { width: 100%; border-radius: var(--radius); margin-bottom: 1rem; }
+.product-scent-story { font-style: italic; font-size: 1.15rem; }
+
+/* --- Cart --- */
+.cart-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+.cart-table th, .cart-table td { padding: 0.75rem; border-bottom: 1px solid rgba(43,38,32,0.1); text-align: left; }
+.cart-summary { margin-top: 2rem; }
+
+/* --- Forms --- */
+form p { margin-bottom: 1rem; }
+input[type="text"], input[type="email"], input[type="password"], input[type="number"], textarea, select {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.6rem;
+  border: 1px solid rgba(43,38,32,0.3);
+  border-radius: var(--radius);
+  font-family: var(--font-sans);
+}
+fieldset { border: none; padding: 0; margin-bottom: 1.5rem; }
+legend { font-weight: bold; margin-bottom: 0.5rem; }
+
+/* --- Quiz --- */
+.quiz-question label { display: block; margin-bottom: 0.4rem; }
+
+/* --- FAQ --- */
+.faq-list dt { font-weight: bold; margin-top: 1.25rem; }
+.faq-list dd { margin-left: 0; }
+
+/* --- Subscription cards --- */
+.subscription-card {
+  background: var(--color-white);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+}
+.subscription-actions form, .subscription-actions a { display: inline-block; margin-right: 0.5rem; }
+
+/* --- Footer --- */
+.site-footer {
+  background: var(--color-charcoal);
+  color: var(--color-greige);
+  margin-top: 3rem;
+  padding: 2.5rem 0;
+}
+.footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem; }
+.footer-brand { font-family: var(--font-serif); font-size: 1.25rem; }
+.footer-inner a { color: var(--color-greige); display: block; margin-bottom: 0.4rem; }
+
+/* --- Breadcrumbs --- */
+.breadcrumbs { padding-top: 1.5rem; font-size: 0.9rem; color: rgba(43,38,32,0.7); }
+.breadcrumbs a { text-decoration: underline; }
+
+/* --- Pagination --- */
+.pagination { margin-top: 2rem; display: flex; gap: 1rem; align-items: center; }
+
+/* --- Quiz progressive disclosure (JS-enhanced; see static/js/quiz.js) --- */
+.quiz-progress { font-weight: bold; color: var(--color-accent); margin-bottom: 1rem; }
+.quiz-nav { display: flex; gap: 1rem; margin-bottom: 1rem; }
+.quiz-question-error { outline: 2px solid var(--color-danger); outline-offset: 4px; border-radius: var(--radius); }
+
+/* --- Responsive: mobile-first base styles above assume a narrow viewport.
+   These min-width rules layer on a wider layout for tablet/desktop. --- */
+@media (min-width: 769px) {
+  .header-inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .product-detail {
+    grid-template-columns: 1fr 1fr;
+  }
+}

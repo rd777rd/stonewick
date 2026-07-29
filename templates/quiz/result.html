@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Your Scent Memory Match — Stonewick{% endblock %}
+{% block og_title %}{% if result.matched_scent %}I got {{ result.matched_scent.name }}! — Stonewick Scent Memory Quiz{% else %}Stonewick Scent Memory Quiz{% endif %}{% endblock %}
+{% block og_description %}{% if result.matched_scent %}{{ result.matched_scent.memory_story|truncatewords:30 }}{% else %}Find the scent that matches your favorite memory.{% endif %}{% endblock %}
+{% block twitter_title %}{% if result.matched_scent %}I got {{ result.matched_scent.name }}! — Stonewick Scent Memory Quiz{% else %}Stonewick Scent Memory Quiz{% endif %}{% endblock %}
+{% block twitter_description %}{% if result.matched_scent %}{{ result.matched_scent.memory_story|truncatewords:30 }}{% else %}Find the scent that matches your favorite memory.{% endif %}{% endblock %}
+{% block og_image %}{% if result.matched_scent.image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ result.matched_scent.image.url }}">{% else %}<meta property="og:image" content="{{ SITE_URL }}/static/img/og-default.jpg">{% endif %}{% endblock %}
+{% block content %}
+<section class="container section quiz-result">
+  {% if result.matched_scent %}
+    <h1>Your match: {{ result.matched_scent.name }}</h1>
+    <p class="scent-memory-story">{{ result.matched_scent.memory_story }}</p>
+    <div class="product-grid">
+      {% for product in related_products %}
+        {% include "partials/_product_card.html" with product=product %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <h1>We couldn't find a match yet</h1>
+    <p>Our scent library is still growing — check back soon, or browse the shop in the meantime.</p>
+    <a href="{% url 'catalog:shop_index' %}" class="btn btn-secondary">Browse the shop</a>
+  {% endif %}
+</section>
+{% endblock %}

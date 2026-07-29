@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load seo_tags %}
+{% block title %}{{ category.meta_title|default:category.name }} — Stonewick{% endblock %}
+{% block meta_description %}{{ category.meta_description|default:category.description }}{% endblock %}
+{% block content %}
+<nav class="container breadcrumbs" aria-label="Breadcrumb">
+  <a href="{% url 'core:home' %}">Home</a> /
+  <a href="{% url 'catalog:shop_index' %}">Shop</a> /
+  <span>{{ category.name }}</span>
+</nav>
+<section class="container section">
+  <h1>{{ category.name }}</h1>
+  {% if category.description %}<p>{{ category.description }}</p>{% endif %}
+  <div class="product-grid">
+    {% for product in page_obj %}
+      {% include "partials/_product_card.html" with product=product %}
+    {% empty %}
+      <p>No products in this category yet.</p>
+    {% endfor %}
+  </div>
+  {% include "partials/_pagination.html" with page_obj=page_obj %}
+</section>
+{% breadcrumb_jsonld crumbs %}
+{% endblock %}

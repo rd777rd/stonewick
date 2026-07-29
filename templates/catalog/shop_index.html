@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Shop — Vessels & Refills — Stonewick{% endblock %}
+{% block content %}
+<section class="container section">
+  <h1>Shop</h1>
+  <div class="shop-links">
+    <a href="{% url 'catalog:vessel_list' %}" class="btn btn-primary">Shop Vessels</a>
+    <a href="{% url 'catalog:refill_list' %}" class="btn btn-secondary">Shop Refills</a>
+  </div>
+</section>
+{% endblock %}

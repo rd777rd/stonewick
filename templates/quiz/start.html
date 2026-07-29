@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Scent Memory Quiz — Stonewick{% endblock %}
+{% block meta_description %}Find the scent that matches your favorite memory — not generic fragrance notes.{% endblock %}
+{% block content %}
+<section class="container section quiz-intro">
+  <h1>What memory do you want to relive?</h1>
+  <p>Answer a few quick questions about places, seasons, and feelings — we'll match you to a scent built around that memory, not a generic list of notes.</p>
+  <a href="{% url 'quiz:take' %}" class="btn btn-primary">Start the quiz</a>
+</section>
+{% endblock %}

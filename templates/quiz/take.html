@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Scent Memory Quiz — Stonewick{% endblock %}
+{% block content %}
+<section class="container section quiz-form">
+  <h1>Scent Memory Quiz</h1>
+  <p class="quiz-progress" data-quiz-progress hidden></p>
+  <form method="post" data-quiz-form novalidate>
+    {% csrf_token %}
+    {% for field in form %}
+      {% include "partials/_quiz_question.html" %}
+    {% endfor %}
+    <div class="quiz-nav" data-quiz-nav hidden>
+      <button type="button" class="btn btn-secondary" data-quiz-back>Back</button>
+      <button type="button" class="btn btn-primary" data-quiz-next>Next</button>
+    </div>
+    <button type="submit" class="btn btn-primary" data-quiz-submit>See my match</button>
+  </form>
+</section>
+{% endblock %}
+{% block extra_scripts %}
+<script src="{% static 'js/quiz.js' %}" defer></script>
+{% endblock %}

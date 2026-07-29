@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Manage Subscriptions — Stonewick{% endblock %}
+{% block content %}
+<section class="container section">
+  <h1>Your Subscriptions</h1>
+  {% for sub in subscriptions %}
+    <div class="subscription-card">
+      <h2>{{ sub.product.name }}</h2>
+      <p>Current scent: {{ sub.current_scent.name|default:"Not set" }}</p>
+      <p>Rotation: {{ sub.get_rotation_mode_display }}</p>
+      <p>Status: {{ sub.get_status_display }}</p>
+      <div class="subscription-actions">
+        {% if sub.status == "active" %}
+          <form method="post" action="{% url 'subscriptions:pause' sub.pk %}">{% csrf_token %}<button class="btn btn-secondary">Pause</button></form>
+          <form method="post" action="{% url 'subscriptions:skip' sub.pk %}">{% csrf_token %}<button class="btn btn-secondary">Skip next shipment</button></form>
+        {% elif sub.status == "paused" %}
+          <form method="post" action="{% url 'subscriptions:resume' sub.pk %}">{% csrf_token %}<button class="btn btn-primary">Resume</button></form>
+        {% endif %}
+        <a href="{% url 'subscriptions:swap_scent' sub.pk %}" class="btn btn-secondary">Swap scent</a>
+        <a href="{% url 'subscriptions:cancel' sub.pk %}" class="btn btn-danger">Cancel</a>
+      </div>
+    </div>
+  {% empty %}
+    <p>You don't have any active subscriptions yet. Add a subscription-eligible refill to your cart to start one.</p>
+  {% endfor %}
+</section>
+{% endblock %}

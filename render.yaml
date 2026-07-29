@@ -1,0 +1,36 @@
+databases:
+  - name: stonewick-db
+    plan: free
+    databaseName: stonewick
+    user: stonewick
+
+services:
+  - type: web
+    name: stonewick-web
+    runtime: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput --settings=config.settings.production"
+    startCommand: "gunicorn config.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com"
+      - key: SITE_DOMAIN
+        value: stonewick.onrender.com
+      - key: SITE_PROTOCOL
+        value: https
+      - key: DATABASE_URL
+        fromDatabase:
+          name: stonewick-db
+          property: connectionString
+      - key: STRIPE_PUBLISHABLE_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false

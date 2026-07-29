@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load seo_tags %}
+{% block title %}FAQ — Stonewick{% endblock %}
+{% block content %}
+<section class="container section">
+  <h1>Frequently Asked Questions</h1>
+  <dl class="faq-list">
+    <dt>Are the refill pouches recyclable or compostable?</dt>
+    <dd>Our refill pouches are fully compostable at home or through municipal composting — no separating layers or special drop-off required.</dd>
+    <dt>How long does one refill pouch last?</dt>
+    <dd>Most refill pouches provide 40–60 hours of burn time or roughly 4–6 weeks of regular diffuser use, depending on the vessel size.</dd>
+    <dt>Can I change my subscription scent anytime?</dt>
+    <dd>Yes — from your account dashboard you can swap scents, skip a shipment, or pause your subscription at any time.</dd>
+  </dl>
+</section>
+{% faq_jsonld faqs %}
+{% endblock %}

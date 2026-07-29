@@ -1,0 +1,16 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ product.name|escapejs }}",
+  "description": "{{ product.description|striptags|truncatewords:40|escapejs }}",
+  "image": ["{% if product.images.first %}{{ request.scheme }}://{{ request.get_host }}{{ product.images.first.image.url }}{% endif %}"],
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "price": "{{ product.price }}",
+    "availability": "{% if product.in_stock %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+    "url": "{{ request.scheme }}://{{ request.get_host }}{{ product.get_absolute_url }}"
+  }
+}
+</script>

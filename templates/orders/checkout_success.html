@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Order Confirmed — Stonewick{% endblock %}
+{% block content %}
+<section class="container section">
+  <h1>Thank you! Your order is confirmed.</h1>
+  <p>Order #{{ order.pk }} — status: {{ order.get_status_display }}</p>
+  <p>We'll email you tracking details once it ships.</p>
+</section>
+{% endblock %}

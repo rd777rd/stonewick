@@ -1,0 +1,11 @@
+<div class="cart-summary">
+  <h2>Order summary</h2>
+  <ul class="cart-summary-items">
+    {% for entry in cart %}
+      <li>{{ entry.quantity }} × {{ entry.product.name }} — ${{ entry.line_total }}</li>
+    {% empty %}
+      <li>Your cart is empty.</li>
+    {% endfor %}
+  </ul>
+  <p class="cart-total"><strong>Total: ${{ cart.total }}</strong></p>
+</div>

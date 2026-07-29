@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Add an Address — Stonewick{% endblock %}
+{% block content %}
+<section class="container section auth-form">
+  <h1>Add a shipping address</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Save address</button>
+  </form>
+</section>
+{% endblock %}

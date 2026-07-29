@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Cancel Subscription — Stonewick{% endblock %}
+{% block content %}
+<section class="container section">
+  <h1>Cancel subscription for {{ subscription.product.name }}?</h1>
+  <p>This will stop future refill shipments. You can always start a new subscription later.</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, cancel</button>
+    <a href="{% url 'subscriptions:manage' %}" class="btn btn-secondary">Never mind</a>
+  </form>
+</section>
+{% endblock %}

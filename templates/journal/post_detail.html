@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ post.meta_title|default:post.title }} — Stonewick Journal{% endblock %}
+{% block meta_description %}{{ post.meta_description|default:post.excerpt }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block content %}
+<article class="container section post-detail">
+  <h1>{{ post.title }}</h1>
+  <p class="post-meta">{{ post.published_at|date:"F j, Y" }}{% if post.author %} · {{ post.author }}{% endif %}</p>
+  {% if post.cover_image %}<img src="{{ post.cover_image.url }}" alt="{{ post.title }}" loading="lazy">{% endif %}
+  <div class="post-body">{{ post.body|linebreaks }}</div>
+</article>
+{% endblock %}

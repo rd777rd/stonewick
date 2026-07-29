@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Contact — Stonewick{% endblock %}
+{% block content %}
+<section class="container section">
+  <h1>Get in touch</h1>
+  <form method="post" class="contact-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Send message</button>
+  </form>
+</section>
+{% endblock %}

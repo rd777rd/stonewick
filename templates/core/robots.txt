@@ -1,0 +1,4 @@
+User-agent: *
+{% for path in disallow_paths %}Disallow: {{ path }}
+{% endfor %}
+Sitemap: {{ request.scheme }}://{{ request.get_host }}/sitemap.xml

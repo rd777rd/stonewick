@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Your Account — Stonewick{% endblock %}
+{% block content %}
+<section class="container section">
+  <h1>Welcome back, {{ request.user.username }}</h1>
+
+  <h2>Subscriptions</h2>
+  {% for sub in subscriptions %}
+    <p>{{ sub.product.name }} — {{ sub.get_status_display }} <a href="{% url 'subscriptions:manage' %}">Manage</a></p>
+  {% empty %}
+    <p>No active subscriptions. <a href="{% url 'catalog:refill_list' %}">Browse refills</a>.</p>
+  {% endfor %}
+
+  <h2>Addresses</h2>
+  <p><a href="{% url 'orders:address_list' %}">Manage your addresses</a></p>
+
+  <h2>Recent Orders</h2>
+  {% for order in orders %}
+    <p>Order #{{ order.pk }} — {{ order.get_status_display }} — ${{ order.total }}</p>
+  {% empty %}
+    <p>No orders yet.</p>
+  {% endfor %}
+
+  <h2>Your Scent Memory Quiz Results</h2>
+  {% for result in quiz_results %}
+    <p>{{ result.created_at|date:"M j, Y" }} — matched: {{ result.matched_scent.name|default:"No match" }}</p>
+  {% empty %}
+    <p>You haven't taken the quiz yet. <a href="{% url 'quiz:start' %}">Take it now</a>.</p>
+  {% endfor %}
+</section>
+{% endblock %}

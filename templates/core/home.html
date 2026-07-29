@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load seo_tags %}
+{% block title %}Stonewick — Refillable Candles & Diffusers Matched to Your Memories{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="container">
+    {% if is_returning_customer %}
+      <h1>Welcome back. Time for a refill?</h1>
+      <p class="hero-sub">Reorder your favorite scent, or swap it up for the season — your vessel's ready when your refill is.</p>
+      <a href="{% url 'catalog:refill_list' %}" class="btn btn-primary">Reorder Refills</a>
+      <a href="{% url 'subscriptions:manage' %}" class="btn btn-secondary">Manage Subscription</a>
+    {% else %}
+      <h1>Buy the vessel once. Refill it forever.</h1>
+      <p class="hero-sub">Stone and ceramic candle &amp; diffuser vessels with compostable refill pouches — scents matched to the memories you want to relive, not generic notes on a label.</p>
+      <a href="{% url 'quiz:start' %}" class="btn btn-primary">Take the Scent Memory Quiz</a>
+    {% endif %}
+  </div>
+</section>
+
+<section class="container section">
+  <h2>Featured Vessels</h2>
+  <div class="product-grid">
+    {% for product in featured_vessels %}
+      {% include "partials/_product_card.html" with product=product %}
+    {% empty %}
+      <p>Vessels coming soon — check back shortly.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="container section">
+  <h2>Featured Refills</h2>
+  <div class="product-grid">
+    {% for product in featured_refills %}
+      {% include "partials/_product_card.html" with product=product %}
+    {% empty %}
+      <p>Refills coming soon — check back shortly.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="container section">
+  <h2>From the Journal</h2>
+  <div class="post-grid">
+    {% for post in latest_posts %}
+      <article class="post-card">
+        <a href="{{ post.get_absolute_url }}">
+          <h3>{{ post.title }}</h3>
+          <p>{{ post.excerpt }}</p>
+        </a>
+      </article>
+    {% empty %}
+      <p>New journal posts coming soon.</p>
+    {% endfor %}
+  </div>
+</section>
+{% org_jsonld %}
+{% endblock %}

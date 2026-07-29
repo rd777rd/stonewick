@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Swap Scent — Stonewick{% endblock %}
+{% block content %}
+<section class="container section">
+  <h1>Swap your scent for {{ subscription.product.name }}</h1>
+  <form method="post">
+    {% csrf_token %}
+    <fieldset>
+      {% for scent in scents %}
+        <label><input type="radio" name="scent_id" value="{{ scent.pk }}" {% if scent == subscription.current_scent %}checked{% endif %}> {{ scent.name }}</label>
+      {% endfor %}
+    </fieldset>
+    <button type="submit" class="btn btn-primary">Save new scent</button>
+  </form>
+</section>
+{% endblock %}
