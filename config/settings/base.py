@@ -8,9 +8,7 @@ import environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-env = environ.Env(
-    DEBUG=(bool, False),
-)
+DEBUG = False
 # Read .env file if present (local dev). In production, real env vars are
 # set directly by the host (Render), so a missing .env file is fine.
 environ.Env.read_env(BASE_DIR / ".env")
